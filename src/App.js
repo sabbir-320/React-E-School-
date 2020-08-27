@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import fakeData from "./fakeData/fakedata";
+import Courses from "./Componets/Courses/Courses"
+import { useState } from 'react';
+import Cart from './Componets/Cart/Cart';
 
-function App() {
+function App(){
+
+  const [cart,setcart]=useState([]);
+  let totalEnrolled=0;
+  function cartUpdate(course){
+    totalEnrolled=[...cart,course];
+    setcart(totalEnrolled);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="container">
+      <header className="bg d-flex justify-content-center">
+        <h1>Welcome to Our E-School</h1>
       </header>
+      <div className="row">
+        <div className="col-md-8">
+          {fakeData.map(course=><Courses enrolled={cartUpdate} course={course}></Courses>)}
+        </div>
+        <div className="col-md-4">
+          <Cart cart={cart}></Cart>
+        </div>
+      </div>
     </div>
   );
 }
